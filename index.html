@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>レジ金庫管理表</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="loading-screen">計算表</div>
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="nav-item" onclick="showPage(1)">1. レジ調整</div>
+            <div class="nav-item" onclick="showPage(2)">2. 金庫</div>
+            <div class="nav-item" onclick="showPage(3)">3. 日通返却</div>
+            <div class="nav-item" onclick="showPage(4)">4. 使い方</div>
+            <hr>
+            <button class="reset-btn" onclick="resetData()">全リセット</button>
+        </nav>
+
+        <div class="main-content">
+            <div id="page1" class="page active">
+                <h2 class="anim-title">1. レジ調整</h2>
+                <table id="table1">
+                    <thead><tr><th>金種</th><th>バラ</th><th>棒</th><th>調(バ)</th><th>調(棒)</th><th>枚数</th><th>金額</th></tr></thead>
+                    <tbody id="tbody1"></tbody>
+                    <tfoot><tr><td colspan="5">合計：</td><td id="grand-total1">0 枚</td><td id="total-price1">0 円</td></tr></tfoot>
+                </table>
+                <div id="summary-box" style="margin-top:15px; font-weight:bold; font-size:18px;">
+                    小口合計: <span id="adj-total" class="highlight">0</span> 円
+                </div>
+            </div>
+
+            <div id="page2" class="page">
+                <h2 class="anim-title">2. 金庫</h2>
+                <table id="table2">
+                    <thead><tr><th>金種</th><th>バラ</th><th>棒金</th><th>枚数</th><th>金額</th></tr></thead>
+                    <tbody id="tbody2"></tbody>
+                    <tfoot><tr><td colspan="3">合計：</td><td id="grand-total2">0 枚</td><td id="total-price2">0 円</td></tr></tfoot>
+                </table>
+            </div>
+
+            <div id="page3" class="page">
+                <h2 class="anim-title">3. 日通へ返却</h2>
+                <table id="table3">
+                    <thead><tr><th>金種</th><th>金庫額</th><th>残(バ)</th><th>残(棒)</th><th>枚数</th><th>返却金</th></tr></thead>
+                    <tbody id="tbody3"></tbody>
+                    <tfoot><tr><td colspan="4">返却合計：</td><td id="nittsu-total" colspan="2" class="highlight">0 </td></tr></tfoot>
+                </table>
+            </div>
+
+            <div id="page4" class="page">
+                <h2 class="anim-title">4. 使い方</h2>
+                <div style="line-height: 2.0; padding: 20px; background: #fff;">
+                    <ol><li>各項目に枚数を入力してください。</li></ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
