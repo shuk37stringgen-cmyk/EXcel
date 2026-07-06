@@ -103,3 +103,48 @@ input {
         visibility: hidden;
     }
 }
+
+/* 「現在バラ」「現在棒」の列（左から2番目と3番目）の背景色を変える */
+#table1 thead th:nth-child(2),
+#table1 tbody td:nth-child(2),
+#table1 thead th:nth-child(3),
+#table1 tbody td:nth-child(3) {
+    background-color: #e8f4fd; /* うっすらとした青色 */
+}
+
+    /* 入力ボックス（input）自体の背景も少し透過させて馴染ませる */
+    #table1 tbody td:nth-child(2) input,
+    #table1 tbody td:nth-child(3) input {
+        background-color: rgba(255, 255, 255, 0.7);
+    }
+
+
+#table1 thead th:nth-child(4),
+#table1 tbody td:nth-child(4),
+#table1 thead th:nth-child(5),
+#table1 tbody td:nth-child(5) {
+    background-color: #ffc7eb; /* うっすらとした青色 */
+}
+
+    /* 入力ボックス（input）自体の背景も少し透過させて馴染ませる */
+    #table1 tbody td:nth-child(4) input,
+    #table1 tbody td:nth-child(5) input {
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+
+#table1 thead th:nth-child(8),
+#table1 tbody td:nth-child(8) {
+    background-color: #f3ffae; /* うっすらとした青色 */
+}
+
+    /* 入力ボックス（input）自体の背景も少し透過させて馴染ませる */
+    #table1 tbody td:nth-child(8) input {
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+
+.header-action-container {
+    display: flex;
+    justify-content: space-between; /* 目標金額を左、ボタンを右に配置 */
+    align-items: center; /* これにより高さが中央で揃う */
+    margin-bottom: 15px;
+}

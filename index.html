@@ -6,32 +6,40 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="loading-screen">計算表</div>
+    <div id="loading-screen">金種計算表</div>
     <div class="app-container">
         <nav class="sidebar">
-            <div class="nav-item" onclick="showPage(1)">1. レジ調整</div>
+            <div class="nav-item" onclick="showPage(1)">1. レジ内と小口入金</div>
             <div class="nav-item" onclick="showPage(2)">2. 金庫</div>
             <div class="nav-item" onclick="showPage(3)">3. 日通返却</div>
-            <div class="nav-item" onclick="showPage(4)">4. 使い方</div>
+            <div class="nav-item" onclick="showPage(4)">4. 使い方と作業</div>
             <hr>
-            <button class="reset-btn" onclick="resetData()">全リセット</button>
+            <button class="reset-btn" onclick="resetData()">※全リセット</button>
         </nav>
 
         <div class="main-content">
             <div id="page1" class="page active">
-                <h2 class="anim-title">1. レジ調整</h2>
+                <h2 class="anim-title">1. レジ調整と小口入金 </h2>
+                <div class="header-action-container">
+                    <div style="font-size: 16px;">
+                        目標金額: <span id="target-amount-text">600000</span> 円
+                        <span id="target-amount-input-area"></span>
+                    </div>
+
+                    <button id="toggle-edit-btn" onclick="toggleEditMode()" style="padding: 5px 15px; cursor: pointer;">目安を編集する</button>
+                </div>
                 <table id="table1">
-                    <thead><tr><th>金種</th><th>バラ</th><th>棒</th><th>調(バ)</th><th>調(棒)</th><th>枚数</th><th>金額</th></tr></thead>
+                    <thead><tr><th>金種</th><th>現在バラ</th><th>現在棒</th><th>入金予定バラ</th><th>入金予定棒</th><th>枚数</th><th>金額</th><th>枚数目安</th></tr></thead>
                     <tbody id="tbody1"></tbody>
-                    <tfoot><tr><td colspan="5">合計：</td><td id="grand-total1">0 枚</td><td id="total-price1">0 円</td></tr></tfoot>
+                    <tfoot><tr><td colspan="5">合計：</td><td id="grand-total1">0 枚</td><td id="total-price1">0 円</td><td></td></tr></tfoot>
                 </table>
                 <div id="summary-box" style="margin-top:15px; font-weight:bold; font-size:18px;">
-                    小口合計: <span id="adj-total" class="highlight">0</span> 円
+                    小口合計: <span id="adj-total" class="highlight">0</span>
                 </div>
             </div>
 
             <div id="page2" class="page">
-                <h2 class="anim-title">2. 金庫</h2>
+                <h2 class="anim-title">2. 金庫に残ったお金</h2>
                 <table id="table2">
                     <thead><tr><th>金種</th><th>バラ</th><th>棒金</th><th>枚数</th><th>金額</th></tr></thead>
                     <tbody id="tbody2"></tbody>
@@ -40,7 +48,7 @@
             </div>
 
             <div id="page3" class="page">
-                <h2 class="anim-title">3. 日通へ返却</h2>
+                <h2 class="anim-title">3. 翌日お金の返却があるときだけ</h2>
                 <table id="table3">
                     <thead><tr><th>金種</th><th>金庫額</th><th>残(バ)</th><th>残(棒)</th><th>枚数</th><th>返却金</th></tr></thead>
                     <tbody id="tbody3"></tbody>
@@ -49,9 +57,49 @@
             </div>
 
             <div id="page4" class="page">
-                <h2 class="anim-title">4. 使い方</h2>
-                <div style="line-height: 2.0; padding: 20px; background: #fff;">
-                    <ol><li>各項目に枚数を入力してください。</li></ol>
+                <h2 class="anim-title">4. 使い方と作業</h2>
+                <div style="line-height: 1.8; padding: 20px; background: #fff; border-radius: 8px;">
+                    <p style="font-weight: bold; font-size: 16px; margin-bottom: 20px; border-bottom: 2px solid #2c3e50; padding-bottom: 5px;">■ レジ締め手順</p>
+                    <ol style="padding-left: 25px; margin-bottom: 20px;">
+                        <li style="margin-bottom: 20px;">
+                            <strong>レジ内の現金入力と差異確認</strong><br>
+                            左側の表（青枠）に、現在レジに入っているお金の枚数と棒金の数を入力します。<br>
+                            その際、一度レジの「精算機能」を使い、差異がないか確認してください。<br>
+                            <span class="highlight" style="font-size: 0.9em;">※ここでは「次へ」は押さずに一度戻ります。</span>
+                        </li>
+                        <li style="margin-bottom: 20px;">
+                            <strong>目標金額の調整（小口入金）とダブルチェック</strong><br>
+                            差異がないことを確認したら、右側の入金予定欄（赤枠）に金庫内から移動する金額を入力し、差し引きで<strong>ぴったり目標金額</strong>に揃えます。<br>
+                            揃えたタイミングで、<strong>他のスタッフに小口入金の金額に間違いがないか確認</strong>してもらいます。<br>
+                            OKが出たら、レジの両面切り替えから小口入金を行います（左下の金額を入力）。
+                        </li>
+                        <li style="margin-bottom: 20px;">
+                            <strong>本精算と開局作業</strong><br>
+                            小口入金後、手順1と同様に枚数を入力し、差異なくぴったり目標金額になっていることを確認して「次へ」を押し、精算を完了させます。<br>
+                            <span class="highlight" style="font-size: 0.9em;">※出力されたレシートは必ず残してください。</span><br>
+                            その後、明日のための開店作業を行います。必ず<strong>明日の日付</strong>に設定し、先ほどのレシートに記載された枚数を入力するとスムーズです。<br>
+                            作業後、小さいレシートをレジに貼られているものと取り替えます。
+                        </li>
+                        <li style="margin-bottom: 20px;">
+                            <strong>金庫の確認と記録（2ページ目）</strong><br>
+                            金庫の残金を確認し、「2. 金庫」ページにバラ・棒金の枚数を入力します。<br>
+                            ファイリングされた現金管理表とメジャーフロートに諸々記載して終了です。
+                        </li>
+                        <li style="margin-bottom: 20px;">
+                            <strong>日通返却がある場合（3ページ目）</strong><br>
+                            日通への返却がある日は、「3. 日通返却」ページに金庫に残すお金の枚数を入力し、専用用紙に記入して終了となります。
+                        </li>
+                        <li style="margin-bottom: 20px;">
+                            この計算表はローカルで自動保存されているので、そのままタブを消して大丈夫です。
+                        </li>
+                    </ol>
+                    <div style="text-align: center; margin-top: 30px; font-weight: bold; font-size: 16px; padding: 15px; background-color: #ecf0f1; border-radius: 4px; color: #2c3e50;">
+                        🎉 レジ締めお疲れさまでした！
+                    </div>
+                    <div style="margin-top: 40px; padding: 15px; border-top: 1px solid #ccc; color: #7f8c8d; font-size: 0.9em; text-align: center;">
+                        <p>不具合や修正依頼はこちらまで：</p>
+                        <p style="font-weight: bold;">shuk37string.gen@gmail.com</p>
+                    </div>
                 </div>
             </div>
         </div>
